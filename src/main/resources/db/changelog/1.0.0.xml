@@ -1,0 +1,195 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-title-1.0.0" author="kevin-llps">
+        <createTable tableName="title">
+            <column name="id" type="INTEGER">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="designation" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-energy-type-1.0.0" author="kevin-llps">
+        <createTable tableName="energy_type">
+            <column name="id" type="INTEGER">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="designation" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-company-customer-1.0.0" author="kevin-llps">
+        <createTable tableName="company_customer">
+            <column name="reference_id" type="CHAR(12)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="siret" type="CHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sales_revenue" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-individual-customer-1.0.0" author="kevin-llps">
+        <createTable tableName="individual_customer">
+            <column name="reference_id" type="CHAR(12)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="title_id"
+                                 baseTableName="individual_customer"
+                                 constraintName="fk_individual_customer_title"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="title"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="create-company-price-1.0.0" author="kevin-llps">
+        <createTable tableName="company_price">
+            <column name="id" type="INTEGER">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="energy_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sales_revenue_limit" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_price_offer" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="second_price_offer" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="energy_type_id"
+                                 baseTableName="company_price"
+                                 constraintName="fk_company_price_energy_type"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="energy_type"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="create-individual-price-1.0.0" author="kevin-llps">
+        <createTable tableName="individual_price">
+            <column name="id" type="INTEGER">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="energy_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="energy_type_id"
+                                 baseTableName="individual_price"
+                                 constraintName="fk_individual_price_energy_type"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="energy_type"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="create-company-customer-energy-1.0.0" author="kevin-llps">
+        <createTable tableName="company_customer_energy">
+            <column name="id" type="INTEGER">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="company_customer_id" type="CHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="energy_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="company_customer_id"
+                                 baseTableName="company_customer_energy"
+                                 constraintName="fk_company_customer_energy_company_customer"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="reference_id"
+                                 referencedTableName="company_customer"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="energy_type_id"
+                                 baseTableName="company_customer_energy"
+                                 constraintName="fk_company_customer_energy_energy"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="energy_type"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="create-individual-customer-energy-1.0.0" author="kevin-llps">
+        <createTable tableName="individual_customer_energy">
+            <column name="id" type="INTEGER">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="individual_customer_id" type="CHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="energy_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="individual_customer_id"
+                                 baseTableName="individual_customer_energy"
+                                 constraintName="fk_individual_customer_energy_individual_customer"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="reference_id"
+                                 referencedTableName="individual_customer"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="energy_type_id"
+                                 baseTableName="individual_customer_energy"
+                                 constraintName="fk_individual_customer_energy_energy"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="energy_type"
+                                 validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
