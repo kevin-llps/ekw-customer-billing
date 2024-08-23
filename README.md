@@ -6,7 +6,7 @@ ekw-customer-billing est une application de gestion de la facturation des client
 Leur facturation porte sur leur consommation en énergie (électrique, gaz).
 
 Elle expose une API REST permettant de calculer
-le montant à facturer à un client pour un mois calendaire.
+le montant à facturer à un client (en fonction de sa consommation mensuelle).
 
 Il s'agit également d'une application stateless, les données seront stockées dans une base de données
 (Voir les flux entrants/sortants pour plus de détails).
@@ -82,8 +82,8 @@ Il s'agit également d'une application stateless, les données seront stockées 
 |--------------|--------------|------------------------------------------------|
 | reference_id | CHAR(12)     | Id de référence du client (Clé primaire)       |
 | title_id     | INTEGER      | Id correspondant à la civilité (Clé étrangère) |
-| lastname     | VARCHAR(200) | Raison sociale du client                       |
-| firstname    | VARCHAR(200) | Chiffre d'affaires                             |
+| lastname     | VARCHAR(200) | Nom de famille du client                       |
+| firstname    | VARCHAR(200) | Prénom du client                               |
 
 ### Table `title` (Civilité)
 
@@ -101,13 +101,13 @@ Il s'agit également d'une application stateless, les données seront stockées 
 
 ### Table `company_price`
 
-| Colonne             | Type    | Description                                                                    |
-|---------------------|---------|--------------------------------------------------------------------------------|
-| id                  | INTEGER | Id (Clé primaire)                                                              |
-| energy_type_id      | INTEGER | Id correspondant au type d'énergie (Clé étrangère)                             |
-| sales_revenue_limit | NUMERIC | Seuil du chiffre d'affaires                                                    |
-| first_price_offer   | NUMERIC | Premier tarif possible (si le seuil du chiffre d'affaires n'a pas été dépassé) |
-| second_price_offer  | NUMERIC | Second tarif possible (si le seuil du chiffre d'affaires a été dépassé)        |
+| Colonne             | Type    | Description                                                                           |
+|---------------------|---------|---------------------------------------------------------------------------------------|
+| id                  | INTEGER | Id (Clé primaire)                                                                     |
+| energy_type_id      | INTEGER | Id correspondant au type d'énergie (Clé étrangère)                                    |
+| sales_revenue_limit | NUMERIC | Seuil du chiffre d'affaires                                                           |
+| first_price_offer   | NUMERIC | Premier tarif possible du kwh (si le seuil du chiffre d'affaires n'a pas été dépassé) |
+| second_price_offer  | NUMERIC | Second tarif possible du kwh (si le seuil du chiffre d'affaires a été dépassé)        |
 
 ### Table `individual_price`
 
@@ -115,7 +115,7 @@ Il s'agit également d'une application stateless, les données seront stockées 
 |----------------|---------|----------------------------------------------------|
 | id             | INTEGER | Id (Clé primaire)                                  |
 | energy_type_id | INTEGER | Id correspondant au type d'énergie (Clé étrangère) |
-| price          | NUMERIC | Tarif                                              |
+| price          | NUMERIC | Tarif du kwh                                       |
 
 ### Table `company_customer_energy`
 
