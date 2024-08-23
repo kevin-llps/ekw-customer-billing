@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "individual_customer_energy")
 public class IndividualCustomerEnergyEntity {
 
+    public IndividualCustomerEnergyEntity(IndividualCustomerEntity individualCustomer, EnergyTypeEntity energyType) {
+        this.individualCustomer = individualCustomer;
+        this.energyType = energyType;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, columnDefinition = "INTEGER")

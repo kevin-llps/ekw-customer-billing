@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "title")
 public class TitleEntity {
 
+    public TitleEntity(String designation) {
+        this.designation = designation;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, columnDefinition = "INTEGER")

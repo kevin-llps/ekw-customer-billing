@@ -1,0 +1,12 @@
+{
+  "customerConsumptionMetrics": [
+    {
+      "energyType": "Electricité",
+      "consumption": 234.87
+    },
+    {
+      "energyType": "Gaz",
+      "consumption": 345.16
+    }
+  ]
+}
