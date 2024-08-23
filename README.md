@@ -13,10 +13,10 @@ Il s'agit également d'une application stateless, les données seront stockées 
 
 ## Fonctionnalités
 
-| Endpoint REST                | Description                                                                       |
-|------------------------------|-----------------------------------------------------------------------------------|
-| POST /customers/{id}/billing | Calcule et renvoie le montant à facturer à un client pour un mois calendaire.     |
-|                              | - Lorsque l'id du customer n'est pas répertoiriée, un code HTTP 404 est retourné. |
+| Endpoint REST                | Description                                                                                      |
+|------------------------------|--------------------------------------------------------------------------------------------------|
+| POST /customers/{id}/billing | Calcule et renvoie le montant à facturer à un client (en fonction de sa consommation mensuelle). |
+|                              | - Lorsque l'id du customer n'est pas répertoiriée, un code HTTP 404 est retourné.                |
 
 ## Tester l'application en local
 
@@ -33,9 +33,13 @@ Il s'agit également d'une application stateless, les données seront stockées 
 
 `mvn liquibase:update`
 
-4) Démarrer l'application avec `EkwCustomerBillingApplication`.
+4) Des fichiers SQL sont mis à disposition pour insérer du jeu de données en base :
 
-5) Des fichiers Postman sont mis à disposition pour tester l'application :
+`src/main/resources/db/sql/scripts`
+
+5) Démarrer l'application avec `EkwCustomerBillingApplication`.
+
+6) Des fichiers Postman sont mis à disposition pour tester l'application :
 
 - `src/main/resources/postman/collection`
 - `src/main/resources/postman/env`
@@ -97,13 +101,13 @@ Il s'agit également d'une application stateless, les données seront stockées 
 
 ### Table `company_price`
 
-| Colonne             | Type    | Description                                        |
-|---------------------|---------|----------------------------------------------------|
-| id                  | INTEGER | Id (Clé primaire)                                  |
-| energy_type_id      | INTEGER | Id correspondant au type d'énergie (Clé étrangère) |
-| sales_revenue_limit | NUMERIC | Seuil du chiffre d'affaires                        |
-| min_price           | NUMERIC | Tarif minimum                                      |
-| max_price           | NUMERIC | Tarif maximum                                      |
+| Colonne             | Type    | Description                                                                    |
+|---------------------|---------|--------------------------------------------------------------------------------|
+| id                  | INTEGER | Id (Clé primaire)                                                              |
+| energy_type_id      | INTEGER | Id correspondant au type d'énergie (Clé étrangère)                             |
+| sales_revenue_limit | NUMERIC | Seuil du chiffre d'affaires                                                    |
+| first_price_offer   | NUMERIC | Premier tarif possible (si le seuil du chiffre d'affaires n'a pas été dépassé) |
+| second_price_offer  | NUMERIC | Second tarif possible (si le seuil du chiffre d'affaires a été dépassé)        |
 
 ### Table `individual_price`
 
