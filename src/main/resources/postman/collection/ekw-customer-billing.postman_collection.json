@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "f45535a7-8e4e-4b4d-bdfb-08e7ddfe1f12",
+		"name": "ekw-customer-billing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12334328",
+		"_collection_link": "https://gold-crescent-813106.postman.co/workspace/EKW~ce6155bf-e60b-40e6-af7a-a22fa5e2ba0f/collection/12334328-f45535a7-8e4e-4b4d-bdfb-08e7ddfe1f12?action=share&source=collection_link&creator=12334328"
+	},
+	"item": [
+		{
+			"name": "Request billing - Company Customer (Use case sales revenue < 1000000)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerConsumptionMetrics\": [\n    {\n      \"energyType\": \"Electricité\",\n      \"consumption\": 234.87\n    },\n    {\n      \"energyType\": \"Gaz\",\n      \"consumption\": 345.16\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/EKW189765456/billing",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						"EKW189765456",
+						"billing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request billing - Company Customer (Use case sales revenue > 1000000)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerConsumptionMetrics\": [\n    {\n      \"energyType\": \"Electricité\",\n      \"consumption\": 234.87\n    },\n    {\n      \"energyType\": \"Gaz\",\n      \"consumption\": 345.16\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/EKW186761478/billing",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						"EKW186761478",
+						"billing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request billing - Individual Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerConsumptionMetrics\": [\n    {\n      \"energyType\": \"Electricité\",\n      \"consumption\": 234.87\n    },\n    {\n      \"energyType\": \"Gaz\",\n      \"consumption\": 345.16\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/EKW189765429/billing",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						"EKW189765429",
+						"billing"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
